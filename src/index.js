@@ -16,7 +16,11 @@ const App = props => {
         <NavigationContainer>
             <SafeAreaView style={{ flex: 1 }}>
                 <Stack.Navigator initialRouteName="HeroesList">
-                    <Stack.Screen name="HeroesList" component={HeroesList} />
+                    <Stack.Screen
+                        name="HeroesList"
+                        component={HeroesList}
+                        options={{ headerShown: false }}
+                    />
                     <Stack.Screen name="HeroDetails" component={HeroDetails} />
                 </Stack.Navigator>
             </SafeAreaView>

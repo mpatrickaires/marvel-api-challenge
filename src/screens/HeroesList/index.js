@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, FlatList, ImageBackground } from 'react-native';
+
+import * as Style from './style';
 
 import md5 from 'js-md5';
 
@@ -27,17 +29,21 @@ const HeroesList = props => {
     const [heroes, setHeroes] = useState();
 
     const renderHeroesList = ({ item: hero }) => (
-        <View>
-            <TouchableOpacity
+        <Style.Container>
+            <Style.HeroButton
                 onPress={() => props.navigation.navigate('HeroDetails')}>
-                <Text>{hero.name}</Text>
-            </TouchableOpacity>
-        </View>
+                <Style.HeroImage
+                    source={{
+                        uri: `${hero.thumbnail.path}.${hero.thumbnail.extension}`,
+                    }}
+                />
+                <Style.HeroName>{hero.name}</Style.HeroName>
+            </Style.HeroButton>
+        </Style.Container>
     );
 
     return (
         <View>
-            <Text>HeroesList</Text>
             {heroes && (
                 <FlatList
                     data={heroes}

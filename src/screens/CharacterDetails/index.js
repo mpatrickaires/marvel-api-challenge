@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, FlatList } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import * as Style from './style';
 
 const CharacterDetails = props => {
@@ -32,6 +34,9 @@ const CharacterDetails = props => {
                     </Style.TextContainer>
                 )}
             />
+            <Style.EditButton>
+                <Icon name="pencil" size={30} color="white" />
+            </Style.EditButton>
         </Style.Container>
     );
 };

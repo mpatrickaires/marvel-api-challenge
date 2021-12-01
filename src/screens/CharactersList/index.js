@@ -1,50 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import {
-    View,
-    FlatList,
-    ImageBackground,
-    TextInput,
-    Text,
-    TouchableOpacity,
-    Keyboard,
-} from 'react-native';
+import { View, FlatList, Keyboard } from 'react-native';
 
 import * as Style from './style';
 
-import md5 from 'js-md5';
+import { connect } from 'react-redux';
 
-const CharactersList = props => {
-    const PUBLIC_KEY = '3c2cca6ead9cc726bf1ba711cb45674d';
-    const PRIVATE_KEY = 'a22935d7613d4da854630069e7bd2dedb19fcb31';
-
-    useEffect(() => {
-        const fetchMarvelAPI = async () => {
-            const timestamp = Number(new Date());
-            const hash = md5.create();
-            hash.update(timestamp + PRIVATE_KEY + PUBLIC_KEY);
-
-            const response = await fetch(
-                `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&orderBy=name&limit=100&apikey=${PUBLIC_KEY}&hash=${hash.hex()}`,
-            );
-
-            const responseJson = await response.json();
-
-            setCharacters(responseJson.data.results);
-        };
-        fetchMarvelAPI();
-    }, []);
-
-    const [characters, setCharacters] = useState();
+const CharactersList = ({ navigation, characters }) => {
     const [searchFilter, setSearchFilter] = useState('');
 
     const renderCharactersList = ({ item: character }) => {
         const characterImage = `${character.thumbnail.path}.${character.thumbnail.extension}`;
 
         return (
-            <Style.Container>
+            <Style.CharacterContainer>
                 <Style.CharacterButton
                     onPress={() =>
-                        props.navigation.navigate('CharacterDetails', {
+                        navigation.navigate('CharacterDetails', {
                             character,
                             characterImage,
                         })
@@ -56,7 +27,7 @@ const CharactersList = props => {
                     />
                     <Style.CharacterName>{character.name}</Style.CharacterName>
                 </Style.CharacterButton>
-            </Style.Container>
+            </Style.CharacterContainer>
         );
     };
 
@@ -77,7 +48,7 @@ const CharactersList = props => {
     };
 
     return (
-        <View>
+        <Style.Container>
             <Style.SearchContainer>
                 <Style.Search
                     placeholder="Digite o nome do personagem..."
@@ -85,9 +56,13 @@ const CharactersList = props => {
                     onChangeText={setSearchFilter}
                 />
             </Style.SearchContainer>
-            {charactersList()}
-        </View>
+            {characters?.length > 0 && charactersList()}
+        </Style.Container>
     );
 };
 
-export default CharactersList;
+const mapStateToProps = state => ({
+    characters: state.characters.characters,
+});
+
+export default connect(mapStateToProps)(CharactersList);

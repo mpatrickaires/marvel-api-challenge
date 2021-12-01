@@ -33,3 +33,15 @@ export const Comics = styled(Text)`
 export const ComicsList = styled(Text)`
     margin-left: 15px;
 `;
+
+export const EditButton = styled.TouchableOpacity`
+    background-color: #ed1d24;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    right: 20px;
+    bottom: 20px;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+`;

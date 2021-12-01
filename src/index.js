@@ -6,8 +6,8 @@ import { SafeAreaView, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HeroesList from './screens/HeroesList';
-import HeroDetails from './screens/HeroDetails';
+import CharactersList from './screens/CharactersList';
+import CharacterDetails from './screens/CharacterDetails';
 
 const Stack = createStackNavigator();
 
@@ -15,13 +15,19 @@ const App = props => {
     return (
         <NavigationContainer>
             <SafeAreaView style={{ flex: 1 }}>
-                <Stack.Navigator initialRouteName="HeroesList">
+                <Stack.Navigator initialRouteName="CharactersList">
                     <Stack.Screen
-                        name="HeroesList"
-                        component={HeroesList}
+                        name="CharactersList"
+                        component={CharactersList}
                         options={{ headerShown: false }}
                     />
-                    <Stack.Screen name="HeroDetails" component={HeroDetails} />
+                    <Stack.Screen
+                        name="CharacterDetails"
+                        component={CharacterDetails}
+                        options={({ route }) => ({
+                            title: route.params.character.name,
+                        })}
+                    />
                 </Stack.Navigator>
             </SafeAreaView>
         </NavigationContainer>

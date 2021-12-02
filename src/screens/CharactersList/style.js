@@ -28,13 +28,17 @@ export const CharacterName = styled.Text`
 `;
 
 export const SearchContainer = styled.View`
-    border-color: #e0e0e0;
-    border-width: 1px;
     border-radius: 20px;
     margin-top: 5px;
     padding: 5px;
 `;
 
 export const Search = styled.TextInput`
+    background-color: white;
+    border-color: #e0e0e0;
     font-size: 20px;
+    line-height: 30px;
+    padding: 10px;
+    border-width: 1px;
+    border-radius: 15px;
 `;

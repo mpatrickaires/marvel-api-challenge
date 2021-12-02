@@ -3,9 +3,20 @@ import { View, FlatList, Keyboard } from 'react-native';
 
 import * as Style from './style';
 
+import { store } from '../../store';
+
+import { getCharacters } from '../../store/actions/characters';
+
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const CharactersList = ({ navigation, characters, focusCharacter }) => {
+const CharactersList = ({ navigation, characters }) => {
+    useEffect(() => {
+        if (!characters?.length) {
+            store.dispatch(getCharacters());
+        }
+    }, []);
+
     const [searchFilter, setSearchFilter] = useState('');
 
     const renderCharactersList = ({ item: character }) => {

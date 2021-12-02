@@ -10,8 +10,12 @@ const setCharacters = characters => {
 };
 
 export const getCharacters = () => async dispatch => {
-    const characters = await fetchMarvelApi();
-    dispatch(setCharacters(characters));
+    try {
+        const characters = await fetchMarvelApi();
+        dispatch(setCharacters(characters));
+    } catch (error) {
+        console.warn(error);
+    }
 };
 
 export function editCharacter(id, name, description) {

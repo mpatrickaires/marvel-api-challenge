@@ -21,8 +21,9 @@ export const Name = styled.Text`
 `;
 
 export const Text = styled.Text`
-    font-size: 20px;
     text-align: justify;
+    line-height: 30px;
+    font-size: 20px;
 `;
 
 export const Comics = styled(Text)`

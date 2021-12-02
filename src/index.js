@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import CharactersList from './screens/CharactersList';
 import CharacterDetails from './screens/CharacterDetails';
+import CharacterEdit from './screens/CharacterEdit';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -33,9 +34,10 @@ const App = props => {
                         <Stack.Screen
                             name="CharacterDetails"
                             component={CharacterDetails}
-                            options={({ route }) => ({
-                                title: route.params.character.name,
-                            })}
+                        />
+                        <Stack.Screen
+                            name="CharacterEdit"
+                            component={CharacterEdit}
                         />
                     </Stack.Navigator>
                 </SafeAreaView>

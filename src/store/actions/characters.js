@@ -14,11 +14,13 @@ export const getCharacters = () => async dispatch => {
     dispatch(setCharacters(characters));
 };
 
-export function editCharacter(character) {
+export function editCharacter(id, name, description) {
     return {
         type: 'EDIT_CHARACTER',
         payload: {
-            character,
+            id,
+            name,
+            description,
         },
     };
 }

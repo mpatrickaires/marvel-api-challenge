@@ -5,7 +5,7 @@ import * as Style from './style';
 
 import { connect } from 'react-redux';
 
-const CharactersList = ({ navigation, characters }) => {
+const CharactersList = ({ navigation, characters, focusCharacter }) => {
     const [searchFilter, setSearchFilter] = useState('');
 
     const renderCharactersList = ({ item: character }) => {
@@ -14,12 +14,12 @@ const CharactersList = ({ navigation, characters }) => {
         return (
             <Style.CharacterContainer>
                 <Style.CharacterButton
-                    onPress={() =>
+                    onPress={() => {
                         navigation.navigate('CharacterDetails', {
                             character,
                             characterImage,
-                        })
-                    }>
+                        });
+                    }}>
                     <Style.CharacterImage
                         source={{
                             uri: characterImage,

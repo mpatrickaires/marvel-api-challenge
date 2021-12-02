@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, ScrollView, FlatList } from 'react-native';
+
+import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as Style from './style';
 
-const CharacterDetails = props => {
-    const { character, characterImage } = props.route.params;
+const CharacterDetails = ({ navigation, route }) => {
+    const { character } = route.params;
+
+    useEffect(() => navigation.setOptions({ title: character.name }));
+
+    const characterImage = `${character.thumbnail.path}.${character.thumbnail.extension}`;
 
     const listHeaderComponent = () => (
         <>
@@ -34,7 +40,12 @@ const CharacterDetails = props => {
                     </Style.TextContainer>
                 )}
             />
-            <Style.EditButton>
+            <Style.EditButton
+                onPress={() =>
+                    navigation.navigate('CharacterEdit', {
+                        character,
+                    })
+                }>
                 <Icon name="pencil" size={30} color="white" />
             </Style.EditButton>
         </Style.Container>

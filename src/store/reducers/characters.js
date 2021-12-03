@@ -1,25 +1,30 @@
-export default function characters(state = { characters: [] }, action) {
-    const { type, payload } = action;
-    switch (type) {
-        case 'SET_CHARACTERS':
-            return {
-                ...state,
-                characters: payload.characters,
-            };
+export default function characters(
+	state = { characters: [] },
+	{ type, payload } = {},
+) {
+	switch (type) {
+		case 'SET_CHARACTERS':
+			return {
+				...state,
+				characters: payload.characters,
+			};
 
-        case 'EDIT_CHARACTER':
-            return {
-                ...state,
-                characters: state.characters.map(character => {
-                    if (character.id === payload.id) {
-                        character.name = payload.name;
-                        character.description = payload.description;
-                    }
-                    return character;
-                }),
-            };
+		case 'EDIT_CHARACTER':
+			return {
+				...state,
+				characters: state.characters.map(character => {
+					const newCharacter = character;
 
-        default:
-            return state;
-    }
+					if (newCharacter.id === payload.id) {
+						newCharacter.name = payload.name;
+						newCharacter.description = payload.description;
+					}
+
+					return newCharacter;
+				}),
+			};
+
+		default:
+			return state;
+	}
 }

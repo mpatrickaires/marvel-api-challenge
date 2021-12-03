@@ -9,10 +9,10 @@ const timestamp = Number(new Date());
 const hash = md5.create();
 hash.update(timestamp + PRIVATE_KEY + PUBLIC_KEY);
 
-export default fetchMarvelApi = async () => {
-    const response = await api.get(
-        `characters?ts=${timestamp}&orderBy=name&limit=100&apikey=${PUBLIC_KEY}&hash=${hash.hex()}`,
-    );
+export default async () => {
+	const response = await api.get(
+		`characters?ts=${timestamp}&orderBy=name&limit=100&apikey=${PUBLIC_KEY}&hash=${hash.hex()}`,
+	);
 
-    return response.data.data.results;
+	return response.data.data.results;
 };

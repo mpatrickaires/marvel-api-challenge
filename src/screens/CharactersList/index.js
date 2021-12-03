@@ -61,7 +61,7 @@ const CharactersList = ({ navigation, characters }) => {
 		<Style.Container>
 			<Style.SearchContainer>
 				<Style.Search
-					placeholder="Digite o nome do personagem..."
+					placeholder="Type the character name..."
 					value={searchFilter}
 					onChangeText={setSearchFilter}
 				/>

@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
+
 import CharactersList from './screens/CharactersList';
 import CharacterDetails from './screens/CharacterDetails';
 import CharacterEdit from './screens/CharacterEdit';
@@ -16,13 +17,13 @@ import { store, persistor } from './store';
 
 const Stack = createStackNavigator();
 
-const App = () => (
-	// useEffect(() => {
-	//     if (!store.getState().characters.characters.length) {
-	//         store.dispatch(getCharacters());
-	//     }
-	// }, []);
+if (__DEV__) {
+	import('./config/ReactotronConfig').then(() =>
+		console.tron.log('Reactotron Configured!'),
+	);
+}
 
+const App = () => (
 	<Provider store={store}>
 		<PersistGate loading={null} persistor={persistor}>
 			<NavigationContainer>

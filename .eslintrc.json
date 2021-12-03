@@ -7,7 +7,8 @@
 	"extends": ["plugin:react/recommended", "airbnb", "prettier"],
 	"globals": {
 		"Atomics": "readonly",
-		"SharedArrayBuffer": "readonly"
+		"SharedArrayBuffer": "readonly",
+		"__DEV__": "readonly"
 	},
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -27,6 +28,10 @@
 		],
 		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 		"react/prop-types": "off",
-		"no-console": "off"
+		"no-console": ["error", { "allow": ["warn", "tron"] }],
+		"import/no-extraneous-dependencies": [
+			"error",
+			{ "devDependencies": true }
+		]
 	}
 }

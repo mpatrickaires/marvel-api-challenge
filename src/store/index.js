@@ -1,4 +1,5 @@
-import { createStore, applyMiddleware } from 'redux';
+import '../config/ReactotronConfig';
+import { createStore, applyMiddleware, compose } from 'redux';
 
 import thunk from 'redux-thunk';
 
@@ -8,13 +9,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import rootReducer from './reducers';
 
 const persistConfig = {
-    key: 'root',
-    storage: AsyncStorage,
+	key: 'root',
+	storage: AsyncStorage,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store = createStore(persistedReducer, applyMiddleware(thunk));
+const composer = __DEV__
+	? compose(applyMiddleware(thunk), console.tron.createEnhancer())
+	: compose(applyMiddleware(thunk));
+
+const store = createStore(persistedReducer, composer);
 
 const persistor = persistStore(store);
 

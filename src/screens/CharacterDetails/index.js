@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { View, FlatList } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ModalForm from '../../components/ModalForm';
 
 import * as Style from './style';
 
 const CharacterDetails = ({ navigation, route }) => {
 	const { character } = route.params;
+
+	const [state, dispatch] = useReducer(
+		(state, action) => ({ ...state, ...action }),
+		{ character, showModal: false },
+	);
 
 	useEffect(() => navigation.setOptions({ title: character.name }));
 
@@ -14,13 +20,18 @@ const CharacterDetails = ({ navigation, route }) => {
 
 	const listHeaderComponent = () => (
 		<>
+			<ModalForm
+				visible={state.showModal}
+				character={state.character}
+				dispatch={dispatch}
+			/>
 			<View>
 				<Style.Image source={{ uri: characterImage }} />
 			</View>
 			<Style.TextContainer>
-				<Style.Name>{character.name}</Style.Name>
+				<Style.Name>{state.character.name}</Style.Name>
 				<Style.Text>
-					{character.description || 'No description available.'}
+					{state.character.description || 'No description available.'}
 				</Style.Text>
 				<Style.Comics>Comics:</Style.Comics>
 			</Style.TextContainer>
@@ -38,14 +49,10 @@ const CharacterDetails = ({ navigation, route }) => {
 					</Style.TextContainer>
 				)}
 			/>
-			<Style.EditButton
-				onPress={() =>
-					navigation.navigate('CharacterEdit', {
-						character,
-					})
-				}>
+			<Style.EditButton onPress={() => dispatch({ showModal: true })}>
 				<Icon name="pencil" size={30} color="white" />
 			</Style.EditButton>
+			{/* TODO: Message popup on character edit save */}
 		</Style.Container>
 	);
 };

@@ -28,7 +28,12 @@ const App = () => (
 		<PersistGate loading={null} persistor={persistor}>
 			<NavigationContainer>
 				<SafeAreaView style={{ flex: 1 }}>
-					<Stack.Navigator initialRouteName="CharactersList">
+					<Stack.Navigator
+						initialRouteName="CharactersList"
+						screenOptions={{
+							headerStyle: { backgroundColor: '#ed1d24' },
+							headerTintColor: 'white',
+						}}>
 						<Stack.Screen
 							name="CharactersList"
 							component={CharactersList}

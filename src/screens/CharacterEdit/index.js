@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Modal } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

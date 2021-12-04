@@ -2,6 +2,8 @@ import actionsType from './actionsType';
 
 import fetchMarvelApi from '../../data/request';
 
+import * as global from './global';
+
 const setCharacters = characters => ({
 	type: actionsType.SET_CHARACTERS,
 	payload: {
@@ -9,19 +11,19 @@ const setCharacters = characters => ({
 	},
 });
 
-export const loadingCharacters = () => ({
-	type: actionsType.LOADING_CHARACTERS,
-});
-
 export const getCharacters = () => async dispatch => {
 	try {
-		dispatch(loadingCharacters());
+		dispatch(global.loading());
+
 		const characters = await fetchMarvelApi().then(
 			async response => response.data.data.results,
 		);
+
 		dispatch(setCharacters(characters));
+
+		dispatch(global.success());
 	} catch (error) {
-		console.warn(error);
+		dispatch(global.error(error.toString()));
 	}
 };
 

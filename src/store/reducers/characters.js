@@ -1,7 +1,11 @@
 import actionsType from '../actions/actionsType';
 
+const INITIAL_STATE = {
+	characters: [],
+};
+
 export default function characters(
-	state = { characters: [], loading: false },
+	state = INITIAL_STATE,
 	{ type, payload } = {},
 ) {
 	switch (type) {
@@ -9,13 +13,6 @@ export default function characters(
 			return {
 				...state,
 				characters: payload.characters,
-				loading: false,
-			};
-
-		case actionsType.LOADING_CHARACTERS:
-			return {
-				...state,
-				loading: true,
 			};
 
 		case actionsType.EDIT_CHARACTER:

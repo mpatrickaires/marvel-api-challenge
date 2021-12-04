@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -9,7 +9,10 @@ import { store } from '../../store';
 
 import * as Style from './style';
 
-const CharactersList = ({ navigation, characters, loading }) => {
+import Loading from '../../components/Loading';
+import Error from '../../components/Error';
+
+const CharactersList = ({ navigation, characters, loading, error }) => {
 	useEffect(() => {
 		if (!characters?.length) {
 			store.dispatch(getCharacters());
@@ -17,15 +20,6 @@ const CharactersList = ({ navigation, characters, loading }) => {
 	}, []);
 
 	const [searchFilter, setSearchFilter] = useState('');
-
-	const renderLoading = () => (
-		<Style.LoadingContainer>
-			<ActivityIndicator size="large" color="#ed1d24" />
-			<Style.LoadingMessage>
-				Hang on! Characters incoming...
-			</Style.LoadingMessage>
-		</Style.LoadingContainer>
-	);
 
 	const renderCharactersList = ({ item: character }) => {
 		const characterImage = `${character.thumbnail.path}.${character.thumbnail.extension}`;
@@ -68,7 +62,8 @@ const CharactersList = ({ navigation, characters, loading }) => {
 
 	return (
 		<Style.Container>
-			{loading && renderLoading()}
+			{loading && <Loading message="Hang on! Characters incoming..." />}
+			{!loading && error && <Error error={error} />}
 			<Style.SearchContainer>
 				<Style.Search
 					placeholder="Type the character name..."
@@ -83,7 +78,8 @@ const CharactersList = ({ navigation, characters, loading }) => {
 
 const mapStateToProps = state => ({
 	characters: state.characters.characters,
-	loading: state.characters.loading,
+	loading: state.global.loading,
+	error: state.global.error,
 });
 
 export default connect(mapStateToProps)(CharactersList);

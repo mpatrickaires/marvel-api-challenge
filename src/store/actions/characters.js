@@ -1,14 +1,21 @@
+import actionsType from './actionsType';
+
 import fetchMarvelApi from '../../data/request';
 
 const setCharacters = characters => ({
-	type: 'SET_CHARACTERS',
+	type: actionsType.SET_CHARACTERS,
 	payload: {
 		characters,
 	},
 });
 
+export const loadingCharacters = () => ({
+	type: actionsType.LOADING_CHARACTERS,
+});
+
 export const getCharacters = () => async dispatch => {
 	try {
+		dispatch(loadingCharacters());
 		const characters = await fetchMarvelApi().then(
 			async response => response.data.data.results,
 		);
@@ -19,7 +26,7 @@ export const getCharacters = () => async dispatch => {
 };
 
 export const editCharacter = (id, name, description) => ({
-	type: 'EDIT_CHARACTER',
+	type: actionsType.EDIT_CHARACTER,
 	payload: {
 		id,
 		name,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import { ActivityIndicator, FlatList } from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -9,7 +9,7 @@ import { store } from '../../store';
 
 import * as Style from './style';
 
-const CharactersList = ({ navigation, characters }) => {
+const CharactersList = ({ navigation, characters, loading }) => {
 	useEffect(() => {
 		if (!characters?.length) {
 			store.dispatch(getCharacters());
@@ -17,6 +17,15 @@ const CharactersList = ({ navigation, characters }) => {
 	}, []);
 
 	const [searchFilter, setSearchFilter] = useState('');
+
+	const renderLoading = () => (
+		<Style.LoadingContainer>
+			<ActivityIndicator size="large" color="#ed1d24" />
+			<Style.LoadingMessage>
+				Hang on! Characters incoming...
+			</Style.LoadingMessage>
+		</Style.LoadingContainer>
+	);
 
 	const renderCharactersList = ({ item: character }) => {
 		const characterImage = `${character.thumbnail.path}.${character.thumbnail.extension}`;
@@ -59,6 +68,7 @@ const CharactersList = ({ navigation, characters }) => {
 
 	return (
 		<Style.Container>
+			{loading && renderLoading()}
 			<Style.SearchContainer>
 				<Style.Search
 					placeholder="Type the character name..."
@@ -66,13 +76,14 @@ const CharactersList = ({ navigation, characters }) => {
 					onChangeText={setSearchFilter}
 				/>
 			</Style.SearchContainer>
-			{characters?.length > 0 && charactersList()}
+			{characters?.length > 0 && !loading && charactersList()}
 		</Style.Container>
 	);
 };
 
 const mapStateToProps = state => ({
 	characters: state.characters.characters,
+	loading: state.characters.loading,
 });
 
 export default connect(mapStateToProps)(CharactersList);

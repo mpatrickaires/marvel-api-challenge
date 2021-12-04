@@ -1,15 +1,24 @@
+import actionsType from '../actions/actionsType';
+
 export default function characters(
-	state = { characters: [] },
+	state = { characters: [], loading: false },
 	{ type, payload } = {},
 ) {
 	switch (type) {
-		case 'SET_CHARACTERS':
+		case actionsType.SET_CHARACTERS:
 			return {
 				...state,
 				characters: payload.characters,
+				loading: false,
 			};
 
-		case 'EDIT_CHARACTER':
+		case actionsType.LOADING_CHARACTERS:
+			return {
+				...state,
+				loading: true,
+			};
+
+		case actionsType.EDIT_CHARACTER:
 			return {
 				...state,
 				characters: state.characters.map(character => {

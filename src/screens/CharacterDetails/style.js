@@ -4,24 +4,6 @@ export const Container = styled.View`
 	flex-grow: 1;
 `;
 
-export const MessageContainer = styled.View`
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	justify-content: flex-end;
-`;
-
-export const Message = styled.Text`
-	background-color: rgba(224, 224, 224, 0.8);
-	bottom: 50px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 5px;
-	border-radius: 5px;
-`;
-
 export const Image = styled.Image`
 	width: 100%;
 	height: 400px;

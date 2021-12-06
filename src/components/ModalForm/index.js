@@ -23,6 +23,7 @@ const ModalForm = ({ visible, character, dispatch, editCharacter }) => {
 				description,
 			},
 			showModal: false,
+			fadeMessage: 'Character saved!',
 		});
 	};
 

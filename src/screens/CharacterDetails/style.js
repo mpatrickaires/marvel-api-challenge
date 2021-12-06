@@ -41,7 +41,7 @@ export const EditButton = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
 	right: 20px;
-	bottom: 20px;
+	bottom: 30px;
 	height: 50px;
 	width: 50px;
 	border-radius: 25px;
